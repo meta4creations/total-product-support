@@ -1,0 +1,116 @@
+/* --------------------------------------------------------- */
+/* !Tickets */
+/* --------------------------------------------------------- */
+
+.tops-form-container,
+.tops-ticket-container {
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+	a {
+		text-decoration: none;
+		box-shadow: none !important;
+		transition: color .25s ease; 
+		&:focus {
+			outline: none;
+		}
+	}
+	#wp-topsticketcomment-editor-tools {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: flex-start;
+		margin-bottom: 10px;
+		.wp-editor-tabs {
+			margin-left: auto;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			button {
+				margin: 0 5px 0 0;
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+		button {
+			@include button();
+			.wp-media-buttons-icon {
+				display: none;
+			}
+		}
+	}
+	#wp-topsticketcomment-wrap {
+		&.tmce-active {
+			#topsticketcomment-tmce {
+				background: $blue;
+			}
+		}
+		&.html-active {
+			#topsticketcomment-html {
+				background: $blue;
+			}
+		}
+	}
+	pre {
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+}
+.tops-ticket-toggle {
+	cursor: pointer;
+	label {
+		font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    cursor: pointer;
+    margin: 0 0 0 6px;
+    position: relative;
+    top: 1px;
+	}
+}
+body,
+#wpadminbar {
+	.tops-count-notification,
+	.tops-unread-notification {
+		display: inline-block;
+    min-width: 16px;
+    height: 16px;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFF;
+    background: #CCC;
+    border-radius: 10px;
+    padding: 0 4px;
+    margin-left: 2px;
+    vertical-align: text-top;
+    box-sizing: border-box;
+	}
+	.tops-unread-notification {
+		background: $orange;
+	}
+}
+.menu-item-type-tops {
+	a {
+		> i,
+		> span {
+			margin-right: 5px;
+		}
+	}
+}
+.menu-item-type-tops-open-tickets {
+	> a {
+		.tops-unread-notification {
+			float: right;
+			margin-left: 5px;
+		}
+	}
+}
+.menu-item-type-tops-starred-tickets {
+	i {
+		float: right;
+		color: $yellow;
+	}
+}

@@ -1,0 +1,238 @@
+/* --------------------------------------------------------- */
+/* !Tickets Action Bar */
+/* --------------------------------------------------------- */
+
+#tops-ticket-new-comment-container {
+	&.tops-ticket-create-reply {
+		#tops-ticket-action-bar {
+			background-color: $green;
+		}
+		#tops-ticket-post-new-comment {
+			background-color: $green;
+			&:hover {
+		    background-color: darken($green, 15%);
+	    }
+		}
+		
+	}
+	&.tops-ticket-create-reply-private {
+		#tops-ticket-action-bar {
+			background-color: $red;
+		}
+		#tops-ticket-post-new-comment {
+			background-color: $red;
+			&:hover {
+		    background-color: darken($red, 15%);
+	    }
+		}
+	}
+	&.tops-ticket-create-note,
+	&.tops-ticket-create-customer-note {
+		#tops-ticket-action-bar {
+			background-color: $yellow;
+		}
+		#tops-ticket-post-new-comment {
+			background-color: $yellow;
+			&:hover {
+		    background-color: darken($yellow, 15%);
+	    }
+		}
+		#tops-ticket-comment-reply-container {
+			background-color: lighten($yellow, 30%);
+		}
+		#tops-ticket-public-comment-switch,
+		#tops-ticket-close-ticket-switch {
+			display: none;
+		}
+	}
+	&.tops-ticket-create-customer-note {
+		#tops-ticket-add-attachment {
+			display: none;
+		}
+		#tops-ticket-attachments {
+			display: none !important;
+		}
+	}
+}
+#tops-ticket-action-bar {
+	position: relative;
+	padding: 15px;
+	background: #eee;
+	border-top: 1px solid #e5e5e5;
+}
+#tops-ticket-action-bar-loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -15px 0 0 -10px;
+	color: #FFF;
+	opacity: 0;
+	transition: opacity .25s ease;
+	.submitting & {
+		opacity: 1;
+	}
+}
+#tops-ticket-action-bar-buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
+	transition: opacity .25s ease;
+	.submitting & {
+		opacity: 0;
+	}
+	i {
+		margin-right: 3px;
+	}
+	a {
+		display: block;
+		font-size: 11px;
+		line-height: 15px;
+		letter-spacing: 1px;
+		text-align: center;
+		text-transform: uppercase;
+    font-weight: bold;
+    color: #888;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.20);
+    padding: 14px 13px 12px;
+    margin-bottom: 10px;
+    &:last-child {
+	    margin-bottom: 0;
+    }
+    &.active {
+	    color: #FFF;
+	    background-color: rgba(0, 0, 0, .3);
+	    transition: none; 
+	    &:hover {
+		    color: #FFF;
+	    }
+    }
+    &:hover {
+	    color: #333;
+    }
+    &#tops-ticket-action-reply {
+			i {
+				color: $green;
+			}
+		}
+		&#tops-ticket-action-note {
+			i {
+				color: $yellow;
+			}
+		}
+    &#tops-ticket-action-customer-note {
+			i {
+				color: #CCC;
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {	
+}
+@media (min-width: 768px) {
+	#tops-ticket-action-bar-buttons {
+		flex-direction: row;
+		align-items: center;
+		a {
+			text-align: left;
+			padding: 8px 13px 6px;
+			margin-right: 5px;
+			margin-bottom: 0;
+			&#tops-ticket-action-customer-note {
+				margin-left: auto;
+				margin-right: 0;
+			}
+		}
+	}	
+}
+@media (min-width: 992px) {	
+}
+@media (min-width: 1200px) {	
+}
+
+
+/* --------------------------------------------------------- */
+/* !Tickets Reply */
+/* --------------------------------------------------------- */
+
+#tops-customer-notes {
+	display: none;
+}
+#tops-ticket-comment-reply-container {
+	display: none;
+	padding: 30px;
+	background: hsl(0, 0%, 99%);
+	border-bottom: 1px solid #e5e5e5;
+}
+.tops-ticket-comment-buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 30px 0 20px;
+	a, button {
+		display: block;
+		font-size: 11px;
+		line-height: 15px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+    font-weight: bold;
+    color: #FFF;
+    border: none;
+    border-radius: 2px;
+    background: $green;
+    padding: 8px 13px 6px;
+    transition: background-color .25s ease; 
+    -webkit-appearance: none;
+    i {
+	    margin-right: 3px;
+    }
+    &:hover {
+	    opacity: 1;
+    }
+    &.tops-ticket-comment-attachments {
+	    background: $blue;
+	    margin-left: auto;
+	    &:hover {
+		    background-color: darken($blue, 15%);
+	    }
+    }
+	}
+	.tops-ticket-create-reply & {
+		a, button {
+			&.tops-ticket-comment-update {
+		    background: $green;
+		    &:hover {
+			    background-color: darken($green, 15%);
+		    }
+	    }
+		}
+	}
+	.tops-ticket-create-reply-private & {
+		a, button {
+			&.tops-ticket-comment-update {
+		    background: $red;
+		    &:hover {
+			    background-color: darken($red, 15%);
+		    }
+	    }
+		}
+	}
+}
+.tops-ticket-comment-toggles {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	> div {
+		margin-right: 15px;
+	}
+}
+.tops-ticket-cancel-comment {
+	font-size: 15px;
+	color: #aaa;
+	margin-left: auto;
+}

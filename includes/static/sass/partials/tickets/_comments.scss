@@ -1,0 +1,211 @@
+/* --------------------------------------------------------- */
+/* !Ticket History */
+/* --------------------------------------------------------- */
+
+.tops-ticket-comment,
+.tops-ticket-note {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	background: hsl(0, 0%, 99.5%);
+	border-bottom: 1px solid #DDD;
+	transition: background-color .5s ease;
+	padding: 20px;
+	&:last-child {
+		border-bottom: none;
+	}
+	&:hover {
+		.tops-ticket-comment-modify {
+			opacity: 1;
+		}
+	}
+	&.tops-comment-delete {
+		background: lighten($red, 30%);
+	}
+	&.tops-comment-new {
+		background: lighten($green, 20%);
+	}
+	a {
+		text-decoration: none;
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}
+.tops-ticket-comment-private {
+	.tops-ticket-comment-reply-type {
+		color: $red;
+	}
+	.tops-ticket-comment-buttons {
+		a,
+		button {
+			&.tops-ticket-comment-update {
+				background-color: $red;
+				&:hover {
+			    background-color: darken($red, 15%);
+		    }
+			}
+		}
+	}
+}
+.tops-ticket-note {
+	.tops-ticket-comment-reply-type {
+		color: $yellow;
+	}
+}
+.tops-ticket-comment-description {
+	p {
+		margin-bottom: 15px;
+	}
+	.tops-ticket-comment-hidden & {
+		font-style: italic;
+		color: #ccc;
+	}
+}
+.tops-ticket-comment-flagged {
+	background-color: lighten($yellow, 30%);
+}
+.tops-ticket-comment-avatar {
+	flex: 0 0 auto;
+	img {
+		width: 27px;
+		border-radius: 50%;
+	}
+}
+.tops-ticket-comment-content {
+	position: relative;
+	flex: 1 1 auto;
+	font-size: 15px;
+  line-height: 1.6;
+  padding-left: 15px;
+}
+.tops-ticket-comment-content-inner {
+	position: relative;
+}
+.tops-ticket-comment-user {
+	font-size: 19px;
+	line-height: 1.2;
+	padding-right: 50px;
+	margin-bottom: 0;
+	i {
+		margin-right: 3px;
+	}
+}
+.tops-ticket-comment-reply-type {
+	color: #888;
+}
+.tops-ticket-comment-time {
+	font-size: 12px;
+	line-height: 20px;
+	color: #aaa;
+	padding-right: 50px;
+	margin-bottom: 14px;
+}
+.tops-ticket-comment-modify {
+	position: absolute;
+	top: 2px;
+	right: 0;
+	font-size: 17px;
+	line-height: 1;
+	opacity: 0;
+	transition: opacity .25s ease;
+	a {
+		display: inline-block;
+		color: #aaa;
+		transition: color .25s ease; 
+		&.tops-ticket-comment-delete {
+			padding-left: 10px;
+		}
+		&:hover {
+			color: #555;
+		}
+	}
+}
+.tops-ticket-comment-flag {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 17px;
+	line-height: 1;
+	color: #aaa;
+	&:hover {
+		color: #777;
+	}
+	.tops-ticket-comment-flagged & {
+		color: $yellow;
+	}
+}
+.tops-ticket-comment-edit-form {
+	display: none;
+}
+
+@media (max-width: 767px) {	
+}
+@media (min-width: 768px) {
+	.tops-ticket-comment,
+	.tops-ticket-note {
+		padding: 30px;
+	}
+	.tops-ticket-comment-avatar {
+		img {
+			width: 50px;
+		}
+	}
+	.tops-ticket-comment-content {
+		padding-left: 20px;
+	}
+}
+@media (min-width: 992px) {	
+}
+@media (min-width: 1200px) {	
+}
+
+/* --------------------------------------------------------- */
+/* !Attachments */
+/* --------------------------------------------------------- */
+
+#tops-ticket-attachments,
+.tops-ticket-comment-attachments {
+	font-family: sans-serif;
+	font-size: 15px;
+	line-height: 24px;
+	border-left: 2px solid #ddd;
+  padding-left: 15px;
+  //margin: 25px 0;
+	strong {
+		display: block;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: #555;
+		padding: 0 0 10px;
+	}
+}
+#tops-ticket-attachments {
+	display: none;
+}
+.tops-ticket-comment-attachment {
+	display: block;
+	> i {
+		color: #888;
+    font-size: 13px;
+    margin-right: 10px;
+	}
+}
+.tops-ticket-attachment-filename {
+	color: #2B92CA;
+	&:hover {
+		color: #000;
+	}
+}
+.tops-ticket-attachment-remove {
+	color: #aaa;
+  font-size: 11px;
+  margin-left: 10px;
+}

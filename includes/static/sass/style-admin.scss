@@ -1,0 +1,51 @@
+@import "bourbon/bourbon";
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/general";
+@import "partials/tickets";
+
+
+/* --------------------------------------------------------- */
+/* !Admin Styles */
+/* --------------------------------------------------------- */
+
+.menu-icon-tops_ticket {
+	div.wp-menu-image:before {
+		font-family: FontAwesome;
+		width: 1.28571429em;
+		text-align: center;
+		content: '\f02c';
+	}
+}
+.tops-admin-meta-row {
+	margin-bottom: 10px;
+}
+.tops-admin-meta-label {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 3px;
+}
+.tops-admin-meta-item {
+	input[type="text"],
+	select {
+		width: 100%;
+	}
+}
+.tops-admin-meta-row-client {
+	a {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+}
+
+.column-unread {
+	width: 12px;
+	padding-top: 9px !important;
+	padding-right: 0 !important;
+}
+.tops-ticket-read {
+	color: #888;
+}
+.tops-ticket-unread {
+	color: $orange;
+}

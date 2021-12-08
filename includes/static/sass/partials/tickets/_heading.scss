@@ -1,0 +1,127 @@
+/* --------------------------------------------------------- */
+/* !Ticket Heading */
+/* --------------------------------------------------------- */
+
+#tops-ticket-type-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 1px;
+  text-transform: uppercase;
+	color: #FFF;
+	padding: 18px;
+	@include border-top-radius(3px);
+	.tops-ticket-public & {
+		background-color: $green;
+	}
+	.tops-ticket-private & {
+		background-color: #DA5830;
+	}
+	i {
+		margin-right: 7px;
+	}
+}
+#tops-ticket-private-toggle {
+	font-weight: bold;
+	color: #FFF;
+	margin-left: auto;
+	opacity: .6;
+	transition: opacity .25s ease;
+	&:hover {
+		opacity: 1;
+	}
+}
+
+/* --------------------------------------------------------- */
+/* !Ticket Title Bar */
+/* --------------------------------------------------------- */
+
+#tops-ticket-title-bar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 20px;
+}
+#tops-ticket-title {
+	font-size: 27px;
+	line-height: 1.3;
+  color: #333;
+	margin: 0 auto 0 0;
+}
+#tops-ticket-response-toggle {
+	padding-left: 20px;
+	i {
+		margin-right: 3px;
+	}
+	a {
+		display: block;
+		color: #888;
+    font-size: 12px;
+    line-height: 12px;
+    padding: 7px 10px 6px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.05);
+    transition: background-color .25s ease; 
+    .tops-ticket-unread & {
+	    color: #FFF;
+	    background-color: #FF932E;
+    }
+	}
+}
+#tops-ticket-starred-toggle {
+	padding-left: 20px;
+	a {
+		display: block;
+		font-size: 25px;
+		line-height: 25px;
+		color: #aaa;
+		&:hover {
+			color: #333;
+		}
+		.tops-ticket-starred & {
+			color: #FDC551;
+		}
+	}
+}
+
+@media (max-width: 767px) {	
+	#tops-ticket-title-bar {
+		flex-wrap: wrap;	
+	}
+	#tops-ticket-response-toggle {
+		order: 0;
+		padding-left: 0;
+	}
+	#tops-ticket-starred-toggle {
+		order: 1;
+		padding-left: 0;
+		margin-left: auto;
+	}
+	#tops-ticket-title {
+		order: 2;
+		width: 100%;
+		font-size: 19px;
+		margin-top: 15px;
+	}
+}
+@media (min-width: 768px) {	
+	#tops-ticket-title-bar {
+		align-items: flex-start;
+	}
+	#tops-ticket-response-toggle,
+	#tops-ticket-starred-toggle {
+		flex: 0 0 auto;
+	}
+}
+@media (min-width: 992px) {	
+}
+@media (min-width: 1200px) {	
+}
+
+
+
+

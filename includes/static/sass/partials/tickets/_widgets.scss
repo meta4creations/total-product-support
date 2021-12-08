@@ -1,0 +1,119 @@
+/* --------------------------------------------------------- */
+/* !Tickets Widgets */
+/* --------------------------------------------------------- */
+
+$dt_width: 80px;
+
+.tops-ticket-details-list {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	text-align: left;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	dt, dd {
+		margin: 0 0 5px !important;
+	}
+	dt {
+		font-size: 10px;
+		font-weight: normal;
+		text-transform: uppercase;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		width: $dt_width;
+		padding-right: 20px;
+	}
+	dd {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: calc(100% - #{$dt_width});
+		img {
+			width: 16px;
+		}
+		* {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+}
+.tops-ticket-details-category {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+.tops-ticket-details-icon {
+	flex: 0 0 auto;
+	display: block;
+	width: 16px;
+	text-align: center;
+	margin-right: 5px;
+	img {
+		display: block;
+		line-height: 0;
+		border-radius: 3px;
+	}
+}
+
+
+/* --------------------------------------------------------- */
+/* !Ticket Categories */
+/* --------------------------------------------------------- */
+
+.tops-ticket-categories-widget {
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	text-align: left;
+	ul {
+		list-style: none !important;
+		margin: 0 !important;
+	}
+	li {
+		position: relative;
+		border-bottom: 1px solid #CCC;
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+	a {
+		display: block;
+		position: relative;
+		padding: 10px 20% 8px 24px;
+		line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	}
+	.tops-ticket-category-notifications {
+		position: absolute;
+    top: 10px;
+    right: 0;
+    display: block;
+		span {
+			display: inline-block;
+			margin-left: 3px;
+		}
+	}
+}
+.tops-ticket-categories-icon {
+	position: absolute;
+	left: 0;
+	top: 12px;
+	display: block;
+	width: 16px;
+	text-align: center;
+	margin-right: 5px;
+	img {
+		display: block;
+		line-height: 0;
+		border-radius: 3px;
+	}
+}
