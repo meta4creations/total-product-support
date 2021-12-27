@@ -2,7 +2,7 @@
 /*
 Plugin Name: Total Product Support
 Description: Support tickets and documentation
-Version: 0.0.1
+Version: 0.1
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Text Domain: total-product-support
