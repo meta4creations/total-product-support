@@ -2,16 +2,11 @@
 /* !Ticket archive */
 /* --------------------------------------------------------- */
 
-.tops-ticket-archive {
-	font-family: Arial, sans-serif;
-	box-shadow: 0 1px 5px rgba(0, 0, 0, .15);
-}
 .tops-ticket-archive-heading {
 	position: relative;
 	margin: 0 !important;
 	padding: 18px 13px 17px 18px;
 	background: #fafafa;
-	@include border-top-radius(3px);
 	border-bottom: 1px solid #e5e5e5;
 	text-transform: uppercase;
 	font-weight: 500;

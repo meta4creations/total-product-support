@@ -214,6 +214,110 @@ class tops_ticket_details_widget extends WP_Widget {
 	}
 }
 
+/**
+ * Show article nav
+ *
+ * @since   1.0.0
+ * @return  void
+ */
+class tops_article_nav_widget extends WP_Widget {
+
+	/** Constructor */
+	function __construct() {
+		parent::__construct(
+			'tops-article-nav-widget',
+			__('TOPS Article Navigation', 'total-product-support'),
+			array(
+				'classname' => 'tops-article-nav-widget',
+				'description' => __('Displays navigation for the current article.', 'total-product-support')
+			)
+		);
+	}
+	
+	/** @see WP_Widget::widget */
+	function widget( $args, $instance ) {
+		
+		extract( $args );
+		
+		// Before widget (defined by themes)
+		echo $before_widget;
+
+		if ( is_singular( 'tops_article' ) ) {
+			$terms = get_the_terms( get_queried_object_id(), 'tops_category' );
+			if ( $terms ) {
+				$parent_term = false;
+				if ( is_array( $terms ) && count( $terms ) > 0 ) {
+					foreach ( $terms as $i => $term ) {
+						if ( 0 != $term->parent ) {
+							$parent_term = $term;
+							break;
+						}
+					}
+				}
+				if ( ! $parent_term ) {
+					$parent_term = reset( $terms );
+				}
+				echo $before_title;
+					echo '<a href="' . get_term_link( $parent_term ) . '">' . $parent_term->name . '</a>';
+				echo $after_title;
+
+				$post_args = array(
+					'posts_per_page'  => -1,
+					'orderby'         => 'title',
+					'order'           => 'ASC',
+					'post_type'       => 'tops_article',
+					'tax_query'       => array(
+						array(
+							'taxonomy' => 'tops_category',
+							'field'    => 'term_id',
+							'terms'    => $parent_term->term_id,
+						),
+					),
+				);
+				$tops_article_query = new WP_Query( $post_args );
+				if ( $tops_article_query->have_posts() ) :
+					echo '<ul class="tops-article-nav">';
+					while ( $tops_article_query->have_posts() ) : $tops_article_query->the_post();
+						$active = ( get_queried_object_id() == get_the_id() ) ? ' tops-article-nav-item--active' : '';
+						echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink() . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), get_the_title() ) . '"><i class="fal fa-file-alt"></i> <span>' . get_the_title() . '</span></a></li>'; 
+					endwhile;
+					echo '</ul>';
+					wp_reset_postdata();
+				else :
+				endif;
+			}
+		} elseif( is_tax( 'tops_category' ) ) {
+			
+			$current_term = get_term( get_queried_object_id(), 'tops_category' );
+			if ( 0 == $current_term->parent ) {
+				$parent_term = $current_term;
+			} else {
+				$parent_term = get_term( $current_term->parent, 'tops_category' );
+			}
+			
+			echo $before_title;
+				echo '<a href="' . get_term_link( $parent_term ) . '">' . $parent_term->name . '</a>';
+			echo $after_title;
+			
+			$terms = get_terms( array(
+				'taxonomy' => 'tops_category',
+				'child_of' => $parent_term->term_id,
+			) );
+			if ( is_array( $terms ) && count( $terms ) > 0 ) {
+				echo '<ul class="tops-article-nav">';
+				foreach ( $terms as $i => $term ) {
+					$active = ( $term->term_id == $current_term->term_id ) ? ' tops-article-nav-item--active' : '';
+					echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_term_link( $term ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $term->name ) . '"><span>' . $term->name . '</span></a></li>'; 
+				}
+				echo '</ul>';
+			}		
+		}
+
+		// After widget (defined by themes)
+		echo $after_widget;
+	}
+}
+
 
 /**
  * Registers the TOPS Widgets
@@ -224,5 +328,6 @@ class tops_ticket_details_widget extends WP_Widget {
 function tops_register_widgets() {
 	register_widget( 'tops_ticket_categories_widget' );
 	register_widget( 'tops_ticket_details_widget' );
+	register_widget( 'tops_article_nav_widget' );
 }
 add_action( 'widgets_init', 'tops_register_widgets' );

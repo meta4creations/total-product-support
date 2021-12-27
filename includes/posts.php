@@ -35,10 +35,9 @@ function tops_setup_post_types() {
 		'show_in_menu' => true,
 		'query_var' => true,
 		'supports' => array( 'title', 'editor' ),
-		'show_in_nav_menus' => false,
+		//'show_in_nav_menus' => false,
 		'rewrite' => array( 'slug'=>'ticket', 'with_front'=>false ),
 	);
-	
 	register_post_type( 'tops_ticket', $args );
 	
 	
@@ -68,15 +67,16 @@ function tops_setup_post_types() {
 		'publicly_queryable' => true,
 		'exclude_from_search' => false,
 		'menu_icon' => 'dashicons-format-aside',
-		'hierarchical' => false,
+		'hierarchical' => true,
+		'has_archive'	=> true,
 		'show_ui' => true,
 		'capability_type' => 'tops_document',
 		'map_meta_cap' => false,
 		'show_in_menu' => true,
 		'query_var' => true,
 		'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'comments' ),
-		'show_in_nav_menus' => false,
-		'rewrite' => array( 'slug'=>'article', 'with_front'=>false ),
+		//'show_in_nav_menus' => false,
+		'rewrite' => array( 'slug' => 'article', 'with_front' => false ),
 	);
 	
 	register_post_type( 'tops_article', $args );
@@ -119,10 +119,11 @@ function tops_setup_taxonomies() {
 			'edit_terms' => 'edit_tops_terms',
 			'assign_terms' => 'assign_tops_terms',
 			'delete_terms' => 'delete_tops_terms'
-		)
+		),
+		'rewrite' => array( 'slug' => 'documentation', 'hierarchical' => true ),
 	); 
 	
-	register_taxonomy( 'tops_category', array('tops_ticket', 'tops_article'), $args );
+	register_taxonomy( 'tops_category', array( 'tops_article' ), $args );
 }
 add_action( 'init','tops_setup_taxonomies' );
 

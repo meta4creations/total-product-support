@@ -28,14 +28,14 @@ add_action( 'init', 'sample_email_sending' );
  * @since   1.0.0
  */
 
-function tops_ticket_add_content( $content ) {
-	
-	if( get_post_type() == 'tops_ticket' ) {
-		return tops_get_template_part( 'ticket' );
-	}
-	return $content;
-}
-add_filter( 'the_content', 'tops_ticket_add_content' );
+// function tops_ticket_add_content( $content ) {
+// 	
+// 	if( get_post_type() == 'tops_ticket' ) {
+// 		return tops_get_template_part( 'ticket' );
+// 	}
+// 	return $content;
+// }
+// add_filter( 'the_content', 'tops_ticket_add_content' );
 
 
 /**
@@ -248,9 +248,7 @@ function tops_add_tickets_menu_item( $items, $args ) {
  */
 
 function tops_remove_widgets( $params ) {
-
-	if( !is_admin() && get_post_type() != 'tops_ticket' ) {
-		
+	if( ! is_admin() && get_post_type() != 'tops_ticket' ) {
 		$i = count($params);
 		while( $i --> 0 ) {
 			if( isset($params[$i]['widget_id']) && (strpos($params[$i]['widget_id'], 'tops-ticket-details') !== false) ) {
@@ -258,13 +256,17 @@ function tops_remove_widgets( $params ) {
 			}
 		}
 	}
-
 	return $params;
 }
 add_filter( 'dynamic_sidebar_params', 'tops_remove_widgets' );
 
 
-
+/**
+ * Add button to generate missing product categories
+ *
+ * @access  public
+ * @since   1.0.0
+ */
 function tops_add_category_generate_button( $taxonomy ) {
 	if( $taxonomy == 'tops_category' ) {
 		?>
@@ -277,8 +279,7 @@ function tops_add_category_generate_button( $taxonomy ) {
 		<?php
 	}
 }
-add_action( 'add_tag_form_pre', 'tops_add_category_generate_button' );
-
+//add_action( 'tops_category_pre_add_form', 'tops_add_category_generate_button' );
 
 
 function tops_generate_missing_edd_categories( $taxonomy ) {
@@ -317,7 +318,7 @@ function tops_generate_missing_edd_categories( $taxonomy ) {
 		}
 	}
 }
-add_action( 'admin_init', 'tops_generate_missing_edd_categories' );
+//add_action( 'admin_init', 'tops_generate_missing_edd_categories' );
 
 
 

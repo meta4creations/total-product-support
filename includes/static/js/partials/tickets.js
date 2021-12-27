@@ -654,11 +654,11 @@ jQuery( document ).ready( function($) {
 		 * @since   1.0.0
 		 */
 		 
-		$('#tops-ticket-new-ticket-form').validate({
-	  	submitHandler: function(form) {
-	    	form.submit();
-	    }
-	  });
+		// $('#tops-ticket-new-ticket-form').validate({
+	  // 	submitHandler: function(form) {
+	  //   	form.submit();
+	  //   }
+	  // });
 		
 		$('#tops-ticket-new-ticket-form').submit(function(e) { 
 			e.preventDefault();

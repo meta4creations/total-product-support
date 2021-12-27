@@ -3,27 +3,19 @@
 	<form id="tops-ticket-new-ticket-form" class="tops-form">
 		
 		<div class="tops-form-item">
-			<h3 class="tops-form-item-label"><?php _e('Product or Category', 'total-product-support'); ?></h3>
+			<h3 class="tops-form-item-label"><?php _e( 'Product', 'total-product-support'); ?></h3>
 			<div class="tops-form-item-description"><?php _e('With which product or category do you need help?', 'total-product-support'); ?></div>
 			<select name="category" class="tops-form-item-element tops-form-item-select required" required>
-				
+				<option value=""><?php _e( 'Select a Product', 'total-product-suppport' ); ?></option>
 				<?php
 				// echo '<option>'.__('Choose one ...', 'total-product-support').'</option>';
 				if( function_exists('EDD') ) {	
-					$license_keys = edd_software_licensing()->get_license_keys_of_user( get_current_user_id(), 0, 'any', true );
-					if( is_array($license_keys) && count($license_keys) > 0 ) {
+					$license_keys = edd_software_licensing()->get_license_keys_of_user( get_current_user_id(), 0, 'any', true );	
+					if( is_array( $license_keys ) && count( $license_keys ) > 0 ) {
 						foreach( $license_keys as $i=>$license ) {
-							$download = edd_software_licensing()->get_download_name( $license->ID );
-							if( $term = get_term_by('name', $download, 'tops_category') ) {
-								echo '<option value="'.$term->slug.'">'.$term->name.'</option>';
+							if ( $download = $license->get_download() ) {
+								echo '<option value="'.$download->ID.'">'.$download->post_title.'</option>';
 							}
-						}
-					}
-				}	 else {	
-					$terms = get_terms( 'tops_category', array('hide_empty' => false) );
-					if( is_array($terms) && count($terms) > 0 ) {
-						foreach( $terms as $i=>$term ) {
-							echo '<option value="'.$term->slug.'">'.$term->name.'</option>';
 						}
 					}
 				}
@@ -73,7 +65,7 @@
 				<div class="tops-form-item-complex-element">
 					<h3 class="tops-form-item-label"><?php _e('Related URL', 'total-product-support'); ?></h3>
 					<div class="tops-form-item-description"><?php _e('Optional, but very helpful.', 'total-product-support'); ?></div>
-					<input type="url" name="related-url" class="tops-form-item-element tops-form-item-url" placeholder="<?php _e('http://', 'total-product-support'); ?>" />
+					<input type="text" name="related-url" class="tops-form-item-element tops-form-item-url" placeholder="<?php _e('http://', 'total-product-support'); ?>" />
 				</div>
 			</div>	
 		</div>

@@ -14,3 +14,42 @@
 	}
 }
 
+.widget-title {
+	a {
+		color: #333;
+	}
+}
+.fusion-content-widget-area .widget {
+	&.tops-article-nav-widget {
+		li {
+			margin-bottom: 10px;
+			a {
+				display: flex;
+				flex-direction: row;
+				align-items: flex-start;
+				justify-content: flex-start;
+				color: #777;
+				&:hover {
+					i {
+						color: $green;
+					}
+				}
+			}
+			&.tops-article-nav-item--active {
+				a {
+					&:hover {
+						color: $green;
+					}
+					span {
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		i {
+			margin-top: 4px;
+			margin-right: 10px;
+			transition: color .25s ease; 
+		}
+	}
+}

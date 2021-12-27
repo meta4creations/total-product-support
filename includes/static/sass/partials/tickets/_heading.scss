@@ -13,7 +13,6 @@
   text-transform: uppercase;
 	color: #FFF;
 	padding: 18px;
-	@include border-top-radius(3px);
 	.tops-ticket-public & {
 		background-color: $green;
 	}

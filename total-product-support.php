@@ -229,7 +229,7 @@ final class Total_Product_Support {
 		require_once TOPS_PLUGIN_DIR.'includes/formatting.php';
 		require_once TOPS_PLUGIN_DIR.'includes/misc-functions.php';
 		
-		require_once TOPS_PLUGIN_DIR.'includes/meta-category.php';
+		//require_once TOPS_PLUGIN_DIR.'includes/meta-category.php';
 		require_once TOPS_PLUGIN_DIR.'includes/meta-ticket.php';
 		require_once TOPS_PLUGIN_DIR.'includes/meta-user.php';
 		
