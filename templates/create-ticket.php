@@ -4,8 +4,8 @@
 		
 		<div class="tops-form-item">
 			<h3 class="tops-form-item-label"><?php _e( 'Product', 'total-product-support'); ?></h3>
-			<div class="tops-form-item-description"><?php _e('With which product or category do you need help?', 'total-product-support'); ?></div>
-			<select name="category" class="tops-form-item-element tops-form-item-select required" required>
+			<div class="tops-form-item-description"><?php _e('With which product do you need help?', 'total-product-support'); ?></div>
+			<select name="product" class="tops-form-item-element tops-form-item-select required" required>
 				<option value=""><?php _e( 'Select a Product', 'total-product-suppport' ); ?></option>
 				<?php
 				// echo '<option>'.__('Choose one ...', 'total-product-support').'</option>';

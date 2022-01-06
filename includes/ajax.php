@@ -20,7 +20,7 @@ function tops_ticket_new_ticket_submit() {
 		'email' => isset($_POST['your-email']) ? $_POST['your-email'] : false,
 		'password' => isset($_POST['your-password']) ? sanitize_text_field($_POST['your-password']) : false,
 		'password_again' => isset($_POST['your-password-again']) ? sanitize_text_field($_POST['your-password-again']) : false,
-		'category' => esc_attr($_POST['category']),
+		'product' => isset( $_POST['product'] ) ? $_POST['product'] : false,
 		'license' => sanitize_text_field($_POST['license']),
 		'subject' => sanitize_text_field($_POST['subject']),
 		'related_url' => (isset($_POST['related-url']) && $_POST['related-url'] != '') ? esc_url_raw($_POST['related-url']) : '',
@@ -72,6 +72,9 @@ function tops_ticket_new_ticket_submit() {
 			$error = $post_id->get_error_message();
 			
 		} elseif( $post_id ) {
+			
+			// Add the ticket product
+			add_post_meta( $post_id, '_tops_ticket_product', esc_attr( $data['product'] ) );
 			
 			// Allow extra data to be saved to the ticket post
 			do_action( 'tops_ticket_after_create_submit', $post_id );

@@ -120,7 +120,7 @@ function tops_setup_taxonomies() {
 			'assign_terms' => 'assign_tops_terms',
 			'delete_terms' => 'delete_tops_terms'
 		),
-		'rewrite' => array( 'slug' => 'documentation', 'hierarchical' => true ),
+		'rewrite' => array( 'hierarchical' => true ),
 	); 
 	
 	register_taxonomy( 'tops_category', array( 'tops_article' ), $args );

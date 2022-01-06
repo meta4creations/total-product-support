@@ -121,11 +121,11 @@ class TOPS_Ticket {
 			
 			// Add the agent ID right away
 			if( !isset($data['agent_id']) || $data['agent_id'] != '' ) {
-				if( !isset($data['category']) || $data['category'] != '' ) {
-					$data['agent_id'] = $this->get_default_agent_id( $data['category'] );
-				} else {
+				// if( !isset($data['category']) || $data['category'] != '' ) {
+				// 	$data['agent_id'] = $this->get_default_agent_id( $data['category'] );
+				// } else {
 					$data['agent_id'] = 1;
-				}
+				//}
 			}
 			update_post_meta( $post_id, '_tops_ticket_agent_id', intval($data['agent_id']) );
 			
@@ -989,8 +989,11 @@ class TOPS_Ticket {
 	 */
 	public function get_comments() {
 		
-		if( !$this->comments ) {
+		if( ! $this->comments ) {
 			$comments = get_post_meta( $this->get_post_id(), '_tops_ticket_comments', true );
+			if ( ! $comments ) {
+				$comments = array();
+			}
 			$this->comments = array_reverse( $comments );
 		}
 
@@ -1374,7 +1377,7 @@ class TOPS_Ticket {
 	 */
 	public function comment_count( $echo=false ) {
 		
-		$comment_count = count($this->comments);
+		$comment_count = count( $this->get_comments() );
 		
 		if( $echo ) {
 			echo $comment_count;

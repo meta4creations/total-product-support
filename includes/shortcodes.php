@@ -148,33 +148,47 @@ add_shortcode( 'tops_ticket_content', 'tops_ticket_content_display' );
  */
 function tops_article_categories_grid_display( $atts, $content = null ) {
   $defaults = array(
-    'parent_category' => get_queried_object_id(),
+    'parent_id'       => get_queried_object_id(),
     'post_limit'      => 5,
     'post_orderby'    => 'title',
     'post_order'      => 'ASC',
   );
   $args = shortcode_atts( $defaults, $atts );
-  $terms = get_terms( array(
-    'taxonomy' => 'tops_category',
-    'child_of' => $args['parent_category'],
-  ) );
+
+  $category_args = array(
+    'posts_per_page' => -1,
+    'orderby' => 'menu_order',
+    'order' => 'ASC',
+    'post_type' => 'tops_article',
+    'post_parent' => $args['parent_id'],
+    'tax_query'       => array(
+      array(
+        'taxonomy' => 'tops_category',
+        'field'    => 'slug',
+        'terms'    => 'category',
+      ),
+    ),
+  );
+  $categories = get_posts( $category_args );
+  
   $html = '';
-  if ( is_array( $terms ) && count( $terms ) > 0 ) {
+  if ( is_array( $categories ) && count( $categories ) > 0 ) {
     $html .= '<div class="tops-article-categories">';
-    foreach ( $terms as $term ) {
+    foreach ( $categories as $category ) {
       $html .= '<div class="tops-article-category">';
-        $html .= '<h3 class="tops-article-category__name"><a href="' . get_term_link( $term ) . '">' . $term->name . '</a></h3>';
+        $html .= '<h3 class="tops-article-category__name"><a href="' . get_permalink( $category ) . '">' . $category->post_title . '</a></h3>';
         $html .= '<ul class="tops-category-articles">';
           $post_args = array(
             'posts_per_page'  => -1,
             'orderby'         => $args['post_orderby'],
             'order'           => $args['post_order'],
             'post_type'       => 'tops_article',
+            'post_parent'     => $category->ID,
             'tax_query'       => array(
               array(
                 'taxonomy' => 'tops_category',
-                'field'    => 'term_id',
-                'terms'    => $term->term_id,
+                'field'    => 'slug',
+                'terms'    => 'article',
               ),
             ),
           );
@@ -188,7 +202,7 @@ function tops_article_categories_grid_display( $atts, $content = null ) {
                 break;
               }
             endwhile;
-            $html .= '<li class="tops-article-category__view-all"><a href="' . get_term_link( $term ) . '" title="' . sprintf( __( 'Link to all %d articles', 'total-product-support' ), $tops_article_query->post_count ) . '"><span>' . sprintf( __( 'See all %d articles', 'total-product-support' ), $tops_article_query->post_count ) . '</span></a></li>';
+            $html .= '<li class="tops-article-category__view-all"><a href="' . get_permalink( $category ) . '" title="' . sprintf( __( 'Link to all %d articles', 'total-product-support' ), $tops_article_query->post_count ) . '"><span>' . sprintf( __( 'See all %d articles', 'total-product-support' ), $tops_article_query->post_count ) . '</span></a></li>';
             wp_reset_postdata();
           else :
           endif;        
@@ -220,11 +234,12 @@ function tops_article_category_post_list_display( $atts, $content = null ) {
     'orderby'         => $args['post_orderby'],
     'order'           => $args['post_order'],
     'post_type'       => 'tops_article',
+    'post_parent'     => get_queried_object_id(),
     'tax_query'       => array(
       array(
         'taxonomy' => 'tops_category',
-        'field'    => 'term_id',
-        'terms'    => get_queried_object()->term_id,
+        'field'    => 'slug',
+        'terms'    => 'article',
       ),
     ),
   );

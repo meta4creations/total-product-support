@@ -1,4 +1,28 @@
 <?php
+// 
+// function tops_update_ticket_categories() {
+// 	if ( wp_doing_ajax() ) {
+// 		return false;
+// 	}
+// 	$args = array(
+// 		'posts_per_page' => -1,
+// 		'post_type' => 'tops_ticket',
+// 		// 'tax_query' => array(
+// 		// 	array(
+// 		// 			'taxonomy' => 'tops_category',
+// 		// 			'field'    => 'slug',
+// 		// 			'terms'    => 'ditty-image-ticker',
+// 		// 	),
+// 		// ),
+// 	);
+// 	$tickets = get_posts( $args );
+// 	if ( is_array( $tickets ) && count( $tickets ) > 0 ) {
+// 		foreach ( $tickets as $i => $ticket ) {
+// 			wp_delete_object_term_relationships( $ticket->ID, tops_category );
+// 		}
+// 	}
+// };
+// add_action( 'admin_init', 'tops_update_ticket_categories' );
 	
 /*
 function sample_email_sending() {

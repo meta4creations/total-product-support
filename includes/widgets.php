@@ -242,23 +242,12 @@ class tops_article_nav_widget extends WP_Widget {
 		// Before widget (defined by themes)
 		echo $before_widget;
 
-		if ( is_singular( 'tops_article' ) ) {
-			$terms = get_the_terms( get_queried_object_id(), 'tops_category' );
-			if ( $terms ) {
-				$parent_term = false;
-				if ( is_array( $terms ) && count( $terms ) > 0 ) {
-					foreach ( $terms as $i => $term ) {
-						if ( 0 != $term->parent ) {
-							$parent_term = $term;
-							break;
-						}
-					}
-				}
-				if ( ! $parent_term ) {
-					$parent_term = reset( $terms );
-				}
+		if ( is_singular( 'tops_article' ) ) {		
+			if ( has_term( 'article', 'tops_category' ) ) {
+
+				$parent = get_post_parent( get_queried_object_id() );
 				echo $before_title;
-					echo '<a href="' . get_term_link( $parent_term ) . '">' . $parent_term->name . '</a>';
+					echo '<a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a>';
 				echo $after_title;
 
 				$post_args = array(
@@ -266,51 +255,57 @@ class tops_article_nav_widget extends WP_Widget {
 					'orderby'         => 'title',
 					'order'           => 'ASC',
 					'post_type'       => 'tops_article',
+					'post_parent'     => $parent->ID,
 					'tax_query'       => array(
 						array(
 							'taxonomy' => 'tops_category',
-							'field'    => 'term_id',
-							'terms'    => $parent_term->term_id,
+							'field'    => 'slug',
+							'terms'    => 'article',
 						),
 					),
 				);
-				$tops_article_query = new WP_Query( $post_args );
-				if ( $tops_article_query->have_posts() ) :
+				$articles = get_posts( $post_args );
+				if ( is_array( $articles ) && count( $articles ) > 0 ) {
 					echo '<ul class="tops-article-nav">';
-					while ( $tops_article_query->have_posts() ) : $tops_article_query->the_post();
-						$active = ( get_queried_object_id() == get_the_id() ) ? ' tops-article-nav-item--active' : '';
-						echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink() . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), get_the_title() ) . '"><i class="fal fa-file-alt"></i> <span>' . get_the_title() . '</span></a></li>'; 
-					endwhile;
+					foreach ( $articles as $i => $article ) {
+						$active = ( $article->ID == get_queried_object_id() ) ? ' tops-article-nav-item--active' : '';
+						echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink( $article ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $article->post_title ) . '"><i class="fal fa-file-alt"></i> <span>' . $article->post_title . '</span></a></li>'; 
+					}
 					echo '</ul>';
-					wp_reset_postdata();
-				else :
-				endif;
-			}
-		} elseif( is_tax( 'tops_category' ) ) {
-			
-			$current_term = get_term( get_queried_object_id(), 'tops_category' );
-			if ( 0 == $current_term->parent ) {
-				$parent_term = $current_term;
-			} else {
-				$parent_term = get_term( $current_term->parent, 'tops_category' );
-			}
-			
-			echo $before_title;
-				echo '<a href="' . get_term_link( $parent_term ) . '">' . $parent_term->name . '</a>';
-			echo $after_title;
-			
-			$terms = get_terms( array(
-				'taxonomy' => 'tops_category',
-				'child_of' => $parent_term->term_id,
-			) );
-			if ( is_array( $terms ) && count( $terms ) > 0 ) {
-				echo '<ul class="tops-article-nav">';
-				foreach ( $terms as $i => $term ) {
-					$active = ( $term->term_id == $current_term->term_id ) ? ' tops-article-nav-item--active' : '';
-					echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_term_link( $term ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $term->name ) . '"><span>' . $term->name . '</span></a></li>'; 
 				}
-				echo '</ul>';
-			}		
+
+			// Category
+			} elseif( has_term( 'category', 'tops_category' ) ) {
+				
+				$parent = get_post_parent( get_queried_object_id() );
+				echo $before_title;
+					echo '<a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a>';
+				echo $after_title;
+				
+				$post_args = array(
+					'posts_per_page'  => -1,
+					'orderby'         => 'menu_order',
+					'order'           => 'ASC',
+					'post_type'       => 'tops_article',
+					'post_parent'     => $parent->ID,
+					'tax_query'       => array(
+						array(
+							'taxonomy' => 'tops_category',
+							'field'    => 'slug',
+							'terms'    => 'category',
+						),
+					),
+				);
+				$categories = get_posts( $post_args );
+				if ( is_array( $categories ) && count( $categories ) > 0 ) {
+					echo '<ul class="tops-article-nav">';
+					foreach ( $categories as $i => $category ) {
+						$active = ( $category->ID == get_queried_object_id() ) ? ' tops-article-nav-item--active' : '';
+						echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink( $category ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $category->post_title ) . '"><span>' . $category->post_title . '</span></a></li>'; 
+					}
+					echo '</ul>';
+				}
+			}
 		}
 
 		// After widget (defined by themes)

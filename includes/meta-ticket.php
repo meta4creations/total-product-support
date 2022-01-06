@@ -42,6 +42,7 @@ function tops_ticket_details_metabox() {
 	$status = ($status == 'closed') ? $status : 'open';
 	$type = get_post_meta( $post->ID, '_tops_ticket_type', true );
 	$starred = get_post_meta( $post->ID, '_tops_ticket_starred', true );
+	$product = get_post_meta( $post->ID, '_tops_ticket_product', true );
 
 	echo '<input type="hidden" name="tops_ticket_metabox_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 	echo '<div class="tops-admin-meta">';
@@ -55,6 +56,25 @@ function tops_ticket_details_metabox() {
 				} else {
 					echo '<input type="number" name="_tops_ticket_user_id" value="'.$user.'" />';
 				}
+			echo '</div>';
+		echo '</div>';
+		
+		$args = array(
+			'posts_per_page' 	=> -1,
+			'post_type' 			=> 'download',
+		);
+		$downloads = get_posts( $args );
+		echo '<div class="tops-admin-meta-row">';
+			echo '<div class="tops-admin-meta-item">';
+				echo '<label class="tops-admin-meta-label" for="_tops_ticket_product">'.__('Product', 'total-product-support').'</label>';
+				echo '<select name="_tops_ticket_product">';
+					echo '<option value="">' . __( 'Select a Product', 'total-product-support' ) . '</option>';
+					if( is_array($downloads) && count($downloads) > 0 ) {
+						foreach( $downloads as $i=>$download ) {
+							echo '<option value="'.$download->ID.'" '.selected($download->ID, $product, false).'>'.$download->post_title.'</option>';
+						}
+					}
+				echo '</select>';
 			echo '</div>';
 		echo '</div>';
 	
@@ -178,6 +198,7 @@ function tops_ticket_metabox_save( $post_id ) {
 	$related_url = isset($_POST['_tops_ticket_related_url']) ? $_POST['_tops_ticket_related_url'] : '';
 	$status = isset($_POST['_tops_ticket_status']) ? $_POST['_tops_ticket_status'] : 'open';
 	$type = isset($_POST['_tops_ticket_type']) ? $_POST['_tops_ticket_type'] : 'private';
+	$product = isset($_POST['_tops_ticket_product']) ? $_POST['_tops_ticket_product'] : 'private';
 	//$favorite = isset($_POST['_tops_ticket_is_starred']) ? $_POST['_tops_ticket_is_starred'] : 'no';
 
 	// Update the ticket history
@@ -185,11 +206,11 @@ function tops_ticket_metabox_save( $post_id ) {
 		
 		$ticket_id = get_post_meta( $post_id, '_tops_ticket_id', true );
 		$args = array(
-			'id' => $ticket_id,
-			'post_id' => $post_id,
-			'comment' => $_POST['post_content'],
-			'type' => isset($_POST['_tops_ticket_comment_type']) ? esc_attr($_POST['_tops_ticket_comment_type']) : 'public',
-			'close' => isset($_POST['_tops_ticket_close_ticket']) ? esc_attr($_POST['_tops_ticket_close_ticket']) : false,
+			'id' 			=> esc_attr( $ticket_id ),
+			'post_id' => esc_attr( $post_id ),
+			'comment' => wp_kses_post( $_POST['post_content'] ),
+			'type' 		=> isset($_POST['_tops_ticket_comment_type']) ? esc_attr($_POST['_tops_ticket_comment_type']) : 'public',
+			'close' 	=> isset($_POST['_tops_ticket_close_ticket']) ? esc_attr($_POST['_tops_ticket_close_ticket']) : false,
 		);
 		$comment = TOPS()->tickets->add_comment( $args );
 
@@ -206,14 +227,15 @@ function tops_ticket_metabox_save( $post_id ) {
     $unread = 'no';
 	}
 	
-	update_post_meta( $post_id, '_tops_ticket_agent_id', $agent );
+	update_post_meta( $post_id, '_tops_ticket_agent_id', esc_attr( $agent ) );
 	if( $user != '' ) {
-		update_post_meta( $post_id, '_tops_ticket_user_id', $user );
+		update_post_meta( $post_id, '_tops_ticket_user_id', esc_attr( $user ) );
 	}
-	update_post_meta( $post_id, '_tops_ticket_license', $license );
-	update_post_meta( $post_id, '_tops_ticket_related_url', $related_url );
-	update_post_meta( $post_id, '_tops_ticket_status', $status );
-	update_post_meta( $post_id, '_tops_ticket_type', $type );	
+	update_post_meta( $post_id, '_tops_ticket_license', sanitize_text_field( $license ) );
+	update_post_meta( $post_id, '_tops_ticket_related_url', esc_url_raw( $related_url ) );
+	update_post_meta( $post_id, '_tops_ticket_status', esc_attr( $status ) );
+	update_post_meta( $post_id, '_tops_ticket_type', esc_attr( $type ) );	
+	update_post_meta( $post_id, '_tops_ticket_product', esc_attr( $product ) );	
 	//update_post_meta( $post_id, '_tops_ticket_is_starred', $favorite );	
 }
 add_action( 'save_post', 'tops_ticket_metabox_save' );
@@ -241,6 +263,7 @@ function tops_ticket_add_edit_columns( $columns ) {
 		}
 	}
 	
+	$updated_columns['product'] = __('Product', 'total-product-support');
 	$updated_columns['last_update'] = __('Last Update', 'total-product-support');
 	$updated_columns['status'] = __('Status', 'total-product-support');
 	$updated_columns['type'] = __('Type', 'total-product-support');
@@ -282,6 +305,16 @@ function tops_ticket_render_edit_columns( $column, $post_id ) {
 			}
 			echo '</div>';
       break;
+			
+		case 'product':	
+			$product_id = get_post_meta( $post_id, '_tops_ticket_product', true );
+			if ( $product_id && is_string( get_post_status( $product_id ) ) ) {
+				$title = get_the_title( $product_id );
+				echo "<a href='edit.php?post_type={$post->post_type}&product={$product_id}'>".$title."</a>";
+			} else {
+				echo '----';
+			}
+			break;
 		
 		case 'last_update':	
 			$last_update = $ticket->last_updated_time();
@@ -420,7 +453,14 @@ function tops_ticket_parse_edit_query( $query ) {
 				'value' => $_GET['user'],
 	  	);
 	  }
-	  
+
+		if( isset($_GET['product']) && $_GET['product'] != '' ) {
+			$meta_query[] = array(
+				'key' => '_tops_ticket_product',
+				'value' => $_GET['product'],
+			);
+		}
+			  
 	  if( count($meta_query) > 0 ) {
 		  $qv['meta_query'] = $meta_query;
 	  }
@@ -442,6 +482,7 @@ function tops_ticket_sortable_columns( $columns ) {
 	$columns['type'] = 'type';
 	$columns['comment_count'] = 'comment_count';
 	$columns['user'] = 'user';
+	$columns['product'] = 'product';
 
 	return $columns;
 }
@@ -487,6 +528,13 @@ function tops_ticket_column_order_request( $vars ) {
 	if( isset($vars['orderby']) && 'user' == $vars['orderby'] ) {
 		$vars = array_merge( $vars, array(
 			'meta_key' => '_tops_ticket_user_id',
+			'orderby' => 'meta_value_num'
+		));
+	}
+	
+	if( isset($vars['orderby']) && 'product' == $vars['orderby'] ) {
+		$vars = array_merge( $vars, array(
+			'meta_key' => '_tops_ticket_product',
 			'orderby' => 'meta_value_num'
 		));
 	}

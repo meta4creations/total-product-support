@@ -250,6 +250,7 @@ final class Total_Product_Support {
 		
 		if( is_admin() ) {
 			require_once TOPS_PLUGIN_DIR.'includes/admin/admin-pages.php';
+			//require_once TOPS_PLUGIN_DIR.'includes/admin/columns.php';
 			require_once TOPS_PLUGIN_DIR.'includes/admin/settings/display-settings.php';
 		}
 		

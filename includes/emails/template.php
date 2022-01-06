@@ -156,9 +156,10 @@ add_action( 'template_redirect', 'tops_display_email_template_preview' );
  */
 function tops_get_ticket_email_body_content( $ticket ) {
 	
-	$default_email_body = __( "You have a new support ticket in the {category} category from {user_name}. Here's what they said:", 'total-product-support' )."\n\n";
-	$default_email_body .= '<blockquote>{comment}</blockquote>\n\n';
-	$default_email_body .= '<strong>'.__( "Do not reply to this email!", 'total-product-support' ).'</strong>\n';
+	//$default_email_body = __( "You have a new support ticket in the {category} category from {user_name}. Here's what they said:", 'total-product-support' )."\n\n";
+	$default_email_body = __( "You have a new support ticket from {user_name}. Here's what they said:", 'total-product-support' )."\n\n";
+	$default_email_body .= "<blockquote>{comment}</blockquote>\n\n";
+	$default_email_body .= '<strong>'.__( "Do not reply to this email!", 'total-product-support' )."</strong>\n";
 	$default_email_body .= '<a href="{url}">'.__("Click here to sign in and reply to this ticket.", 'total-product-support').'</a>';
 	
 
@@ -180,9 +181,10 @@ function tops_get_ticket_email_body_content( $ticket ) {
  */
 function tops_get_comment_email_body_content( $comment ) {
 	
-	$default_email_body = __( "There is a new comment on the support ticket in the {category} category from <em>{user_name}</em>. Here's what they said:", 'total-product-support' )."\n\n";
-	$default_email_body .= '<blockquote>{comment}</blockquote>\n\n';
-	$default_email_body .= '<strong>'.__( "Do not reply to this email!", 'total-product-support' ).'</strong>\n';
+	//$default_email_body = __( "There is a new comment on the support ticket in the {category} category from <em>{user_name}</em>. Here's what they said:", 'total-product-support' )."\n\n";
+	$default_email_body = __( "There is a new comment on your support ticket from <em>{user_name}</em>. Here's what they said:", 'total-product-support' )."\n\n";
+	$default_email_body .= "<blockquote>{comment}</blockquote>\n\n";
+	$default_email_body .= '<strong>'.__( "Do not reply to this email!", 'total-product-support' )."</strong>\n";
 	$default_email_body .= '<a href="{url}">'.__("Click here to sign in and reply to this ticket.", 'total-product-support').'</a>';
 	
 

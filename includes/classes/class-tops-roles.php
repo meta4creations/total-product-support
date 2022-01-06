@@ -112,6 +112,7 @@ class TOPS_Roles {
 					$wp_roles->add_cap( 'tops_ticket_manager', $cap );
 					$wp_roles->add_cap( 'tops_ticket_agent', $cap );
 					$wp_roles->add_cap( 'administrator', $cap );
+					$wp_roles->add_cap( 'editor', $cap );
 				}
 			}
 		}
