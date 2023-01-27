@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: support, documentation, tickets
 Requires at least: 5.5
 Tested up to: 5.8.3
-Stable tag: /trunk/
+Stable tag: 1.0
 License: GPL2
 
 Support tickets and documentation
@@ -15,7 +15,10 @@ Support tickets and documentation
 
 == Changelog ==
 
-= 0.1 =
+= 1.0.1 =
+* Modified article category shortcode to allow for no parent
+
+= 1.0 =
 * Total Product Support
 
 == Upgrade Notice ==

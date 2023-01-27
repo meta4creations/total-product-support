@@ -319,7 +319,7 @@ class TOPS_Ticket {
 			$data['post_id'] = $this->post_id;
 			$data['agent_id'] = $this->get_agent_id();
 			$data['comment'] = $args['comment'];
-			$data['attachments'] = $args['attachments'];
+			$data['attachments'] = isset( $args['attachments'] ) ? $args['attachments'] : false;
 			
 			$note = new TOPS_Ticket_Note();
 			return $note->create( $data );
@@ -346,7 +346,7 @@ class TOPS_Ticket {
 			$data['agent_id'] = $this->get_agent_id();
 			$data['type'] = isset($args['type']) ? $args['type'] : 'public';
 			$data['comment'] = $args['comment'];
-			$data['attachments'] = $args['attachments'];
+			$data['attachments'] = isset( $args['attachments'] ) ? $args['attachments'] : false;
 			
 			// Open the ticket with each comment
 			$this->status = 'open';

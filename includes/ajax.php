@@ -21,7 +21,7 @@ function tops_ticket_new_ticket_submit() {
 		'password' => isset($_POST['your-password']) ? sanitize_text_field($_POST['your-password']) : false,
 		'password_again' => isset($_POST['your-password-again']) ? sanitize_text_field($_POST['your-password-again']) : false,
 		'product' => isset( $_POST['product'] ) ? $_POST['product'] : false,
-		'license' => sanitize_text_field($_POST['license']),
+		'license' => isset( $_POST['license'] ) ? sanitize_text_field($_POST['license']) : false,
 		'subject' => sanitize_text_field($_POST['subject']),
 		'related_url' => (isset($_POST['related-url']) && $_POST['related-url'] != '') ? esc_url_raw($_POST['related-url']) : '',
 		'comment' => wp_kses_post($_POST['topsticketcomment']),

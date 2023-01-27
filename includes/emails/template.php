@@ -179,7 +179,7 @@ function tops_get_ticket_email_body_content( $ticket ) {
  * @param object $ticket Ticket object
  * @return string $email_body Body of the email
  */
-function tops_get_comment_email_body_content( $comment ) {
+function tops_get_comment_email_body_content( $comment, $ticket ) {
 	
 	//$default_email_body = __( "There is a new comment on the support ticket in the {category} category from <em>{user_name}</em>. Here's what they said:", 'total-product-support' )."\n\n";
 	$default_email_body = __( "There is a new comment on your support ticket from <em>{user_name}</em>. Here's what they said:", 'total-product-support' )."\n\n";

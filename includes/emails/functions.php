@@ -101,7 +101,7 @@ function tops_new_comment_email( $data, $comment_id, $to_email = '' ) {
 	$heading      = tops_do_email_tags( $heading, $comment );
 
 	//$attachments  = apply_filters( 'tops_receipt_attachments', array(), $payment_id, $payment_data );
-	$message = tops_do_email_tags( tops_get_comment_email_body_content($comment), $comment );
+	$message = tops_do_email_tags( tops_get_comment_email_body_content($comment, $ticket), $comment );
 	$emails = TOPS()->emails;
 
 	$emails->__set( 'from_name', $from_name );
