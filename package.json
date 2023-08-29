@@ -1,0 +1,23 @@
+{
+  "name": "total-product-support",
+  "version": "1.0.1",
+  "description": "Support tickets and documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Metaphor Creations, LLC <joe@metaphorcreations.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "10.4.14",
+    "cssnano": "6.0.0",
+    "dotenv": "16.0.3",
+    "gulp": "4.0.2",
+    "gulp-concat": "2.6.1",
+    "gulp-if": "3.0.0",
+    "gulp-postcss": "9.0.1",
+    "gulp-sass": "5.1.0",
+    "gulp-terser": "2.1.0",
+    "sass": "1.62.0"
+  }
+}

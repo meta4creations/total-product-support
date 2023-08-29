@@ -17,12 +17,12 @@ function tops_enqueue_scripts() {
 	wp_register_style( 'font-awesome', plugin_dir_url(__FILE__).'static/font-awesome/css/font-awesome.min.css', false, '4.7.0' );
 	wp_enqueue_style( 'total-product-support', plugin_dir_url(__FILE__).'static/css/style.css', array('font-awesome', 'switchery', 'swipebox'), filemtime(plugin_dir_path(__FILE__).'static/css/style.css') );
 		
-	wp_enqueue_script( 'total-product-support', plugin_dir_url(__FILE__).'static/js/scripts.min.js', array(
+	wp_enqueue_script( 'total-product-support', plugin_dir_url(__FILE__).'static/js/bundle.js', array(
 		'jquery-form',
 		'switchery',
 		'swipebox',
 		'jquery-validation'
-	), filemtime(plugin_dir_path(__FILE__).'static/js/scripts.min.js'), true );
+	), filemtime(plugin_dir_path(__FILE__).'static/js/bundle.js'), true );
 	wp_localize_script( 'total-product-support', 'tops_vars', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'security' => wp_create_nonce( 'total-product-support' ),
@@ -37,7 +37,7 @@ function tops_enqueue_scripts() {
 	
 		// Register the plugin scripts
 		wp_enqueue_style( 'total-product-support-admin', plugin_dir_url(__FILE__).'static/css/style-admin.css', array('switchery'), filemtime(plugin_dir_path(__FILE__).'static/css/style-admin.css') );
-		wp_enqueue_script( 'total-product-support-admin', plugin_dir_url(__FILE__).'static/js/scripts-admin.min.js', array('switchery'), filemtime(plugin_dir_path(__FILE__).'static/js/scripts-admin.min.js'), true );
+		wp_enqueue_script( 'total-product-support-admin', plugin_dir_url(__FILE__).'static/js/bundle-admin.js', array('switchery'), filemtime(plugin_dir_path(__FILE__).'static/js/bundle-admin.js'), true );
 		
 	}
 }

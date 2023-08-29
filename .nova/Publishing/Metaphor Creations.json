@@ -1,5 +1,8 @@
 {
   "identifier" : "C2260F79-355E-427C-8220-1EF7B69D285D",
+  "ignoredFilePatterns" : [
+    "node_modules"
+  ],
   "localPath" : ".",
   "remotePath" : "\/metaphorcreations.com\/public_html\/wp-content\/plugins\/total-product-support",
   "server" : "Metaphor Creations",

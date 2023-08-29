@@ -3,8 +3,8 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: support, documentation, tickets
 Requires at least: 5.5
-Tested up to: 5.8.3
-Stable tag: 1.0
+Tested up to: 6.3
+Stable tag: 1.0.1
 License: GPL2
 
 Support tickets and documentation

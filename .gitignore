@@ -1,0 +1,26 @@
+# Node.js dependencies
+node_modules/
+
+# Compiled CSS and JavaScript files
+includes/static/css/
+includes/static/js/bundle.js
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Temporary files
+*.bak
+*.swp
+*.swo
+*.tmp
+*.temp
