@@ -252,7 +252,7 @@ class tops_article_nav_widget extends WP_Widget {
 
 				$post_args = array(
 					'posts_per_page'  => -1,
-					'orderby'         => 'title',
+					'orderby'         => 'menu_order',
 					'order'           => 'ASC',
 					'post_type'       => 'tops_article',
 					'post_parent'     => $parent->ID,

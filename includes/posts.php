@@ -76,6 +76,7 @@ function tops_setup_post_types() {
 		'query_var' => true,
 		'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'comments' ),
 		//'show_in_nav_menus' => false,
+		'show_in_rest' => true,
 		'rewrite' => array( 'slug' => 'article', 'with_front' => false ),
 	);
 	
