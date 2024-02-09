@@ -150,7 +150,7 @@ function tops_article_categories_grid_display( $atts, $content = null ) {
   $defaults = array(
     'parent_id'       => get_queried_object_id(),
     'post_limit'      => 5,
-    'post_orderby'    => 'title',
+    'post_orderby'    => 'menu_order',
     'post_order'      => 'ASC',
   );
   $args = shortcode_atts( $defaults, $atts );
@@ -225,7 +225,7 @@ function tops_most_viewed_category_articles_display( $atts, $content = null ) {
   $defaults = array(
     'parent_id'       => get_queried_object_id(),
     'post_limit'      => 5,
-    'post_orderby'    => 'title',
+    'post_orderby'    => 'menu_order',
     'post_order'      => 'ASC',
   );
   $args = shortcode_atts( $defaults, $atts );
@@ -298,7 +298,7 @@ add_shortcode( 'tops_most_viewed_category_articles', 'tops_most_viewed_category_
  */
 function tops_article_category_post_list_display( $atts, $content = null ) {
   $defaults = array(
-    'post_orderby'    => 'title',
+    'post_orderby'    => 'menu_order',
     'post_order'      => 'ASC',
     'post_parent'     => get_queried_object_id(),
   );
