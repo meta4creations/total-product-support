@@ -20,7 +20,7 @@ function tops_get_template_part( $name, $view_variables = array(), $return = tru
 	$templates = apply_filters( 'tops_get_template_part', $templates, $name, $view_variables );
  
 	// Return the part that is found
-	return tops_locate_template( $templates, $view_variables, $return = true );
+	return tops_locate_template( $templates, $view_variables, $return );
 }
 
 
@@ -31,7 +31,7 @@ function tops_get_template_part( $name, $view_variables = array(), $return = tru
  * @since   1.0.0
  */
 
-function tops_locate_template( $template_names, $view_variables = array(), $return ) {
+function tops_locate_template( $template_names, $view_variables = array(), $return = true ) {
 	
 	// No file found yet
 	$file_path = false;

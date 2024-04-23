@@ -14,6 +14,31 @@
 	}
 }
 
+.tops-article-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	&__heading {
+		margin-bottom: 20px;
+	}
+	li.tops-article-nav-item {
+		&--active {
+			font-weight: bold;
+		}
+		a {
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+			i {
+				margin-top: 5px;
+			}
+		}
+	}
+}
+
 .widget-title {
 	a {
 		color: #333;
@@ -49,7 +74,7 @@
 		i {
 			margin-top: 4px;
 			margin-right: 10px;
-			transition: color .25s ease; 
+			transition: color .25s ease;
 		}
 	}
 }

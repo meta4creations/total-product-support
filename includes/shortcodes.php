@@ -333,3 +333,76 @@ function tops_article_category_post_list_display( $atts, $content = null ) {
   return $html;
 }
 add_shortcode( 'tops_article_category_post_list', 'tops_article_category_post_list_display' );
+
+
+
+function tops_article_navigation_display( $atts, $content = null  ) {
+  if ( ! is_singular( 'tops_article' ) ) {
+    return false;
+  }	
+  
+  ob_start();
+    	
+  if ( has_term( 'article', 'tops_category' ) ) {
+
+    $parent = get_post_parent( get_queried_object_id() );
+    echo '<h3 class="tops-article-nav__heading"><a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a></h3>';
+
+    $post_args = array(
+      'posts_per_page'  => -1,
+      'orderby'         => 'title',
+      'order'           => 'ASC',
+      'post_type'       => 'tops_article',
+      'post_parent'     => $parent->ID,
+      'tax_query'       => array(
+        array(
+          'taxonomy' => 'tops_category',
+          'field'    => 'slug',
+          'terms'    => 'article',
+        ),
+      ),
+    );
+    $articles = get_posts( $post_args );
+    if ( is_array( $articles ) && count( $articles ) > 0 ) {
+      echo '<ul class="tops-article-nav">';
+      foreach ( $articles as $i => $article ) {
+        $active = ( $article->ID == get_queried_object_id() ) ? ' tops-article-nav-item--active' : '';
+        echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink( $article ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $article->post_title ) . '"><i class="fal fa-file-alt"></i> <span>' . $article->post_title . '</span></a></li>'; 
+      }
+      echo '</ul>';
+    }
+
+  // Category
+  } elseif( has_term( 'category', 'tops_category' ) ) {
+    
+    $parent = get_post_parent( get_queried_object_id() );
+    echo '<h3 class="tops-article-nav__heading"><a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a></h3>';
+    
+    $post_args = array(
+      'posts_per_page'  => -1,
+      'orderby'         => 'title',
+      'order'           => 'ASC',
+      'post_type'       => 'tops_article',
+      'post_parent'     => $parent->ID,
+      'tax_query'       => array(
+        array(
+          'taxonomy' => 'tops_category',
+          'field'    => 'slug',
+          'terms'    => 'category',
+        ),
+      ),
+    );
+    $categories = get_posts( $post_args );
+    if ( is_array( $categories ) && count( $categories ) > 0 ) {
+      echo '<ul class="tops-article-nav">';
+      foreach ( $categories as $i => $category ) {
+        $active = ( $category->ID == get_queried_object_id() ) ? ' tops-article-nav-item--active' : '';
+        echo '<li class="tops-article-nav-item' . $active . '"><a href="' . get_permalink( $category ) . '" title="' . sprintf( __( 'Link to ', 'total-product-support' ), $category->post_title ) . '"><span>' . $category->post_title . '</span></a></li>'; 
+      }
+      echo '</ul>';
+    }
+  }
+
+  return ob_get_clean();
+}
+add_shortcode( 'tops_article_navigation', 'tops_article_navigation_display' );

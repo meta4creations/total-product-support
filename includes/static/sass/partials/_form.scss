@@ -23,11 +23,12 @@
 .tops-form-item-complex-element {
 	width: 50%;
 	padding: 6px;
+	box-sizing: border-box;
 }
 .tops-form-container {
 	input[type="text"],
-	input[type="email"],,
-	input[type="password"],,
+	input[type="email"], ,
+	input[type="password"], ,
 	input[type="url"],
 	textarea {
 		width: 100%;
@@ -38,5 +39,5 @@
 	margin-right: 5px;
 }
 .tops-form-item-checkbox-label {
-	font-size: .8em;	
+	font-size: .8em;
 }
