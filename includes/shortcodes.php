@@ -350,7 +350,7 @@ function tops_article_navigation_display( $atts, $content = null  ) {
 
     $post_args = array(
       'posts_per_page'  => -1,
-      'orderby'         => 'title',
+      'orderby'         => 'menu_order',
       'order'           => 'ASC',
       'post_type'       => 'tops_article',
       'post_parent'     => $parent->ID,
@@ -380,7 +380,7 @@ function tops_article_navigation_display( $atts, $content = null  ) {
     
     $post_args = array(
       'posts_per_page'  => -1,
-      'orderby'         => 'title',
+      'orderby'         => 'menu_order',
       'order'           => 'ASC',
       'post_type'       => 'tops_article',
       'post_parent'     => $parent->ID,
