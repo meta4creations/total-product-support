@@ -117,11 +117,12 @@ function tops_setup_taxonomies() {
 		'show_admin_column' => true,
 		'capabilities' => array(
 			'manage_terms' => 'manage_tops_terms',
-			'edit_terms' => 'edit_tops_terms',
+			'edit_terms' 	=> 'edit_tops_terms',
 			'assign_terms' => 'assign_tops_terms',
 			'delete_terms' => 'delete_tops_terms'
 		),
 		'rewrite' => array( 'hierarchical' => true ),
+		'show_in_rest' => true
 	); 
 	
 	register_taxonomy( 'tops_category', array( 'tops_article' ), $args );
