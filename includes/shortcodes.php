@@ -337,23 +337,39 @@ add_shortcode( 'tops_article_category_post_list', 'tops_article_category_post_li
 
 
 function tops_article_navigation_display( $atts, $content = null  ) {
-  if ( ! is_singular( 'tops_article' ) ) {
+
+  $defaults = [
+    'parent_id' => '',
+    'show_heading' => 1
+  ];
+  $args = shortcode_atts( $defaults, $atts );
+
+  if ( ! is_singular( 'tops_article' ) && '' == $args['parent_id'] ) {
     return false;
   }	
   
   ob_start();
     	
-  if ( has_term( 'article', 'tops_category' ) ) {
+  if ( has_term( 'article', 'tops_category' ) || '' != $args['parent_id'] ) {
 
-    $parent = get_post_parent( get_queried_object_id() );
-    echo '<h3 class="tops-article-nav__heading"><a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a></h3>';
+    if ( '' != $args['parent_id'] ) {
+      $parent_id = $args['parent_id'];
+      $parent = get_post( $args['parent_id'] );
+    } else {
+      $parent = get_post_parent( get_queried_object_id() );
+      $parent_id = $parent->ID;
+    }
+
+    if ( boolval( $args['show_heading'] ) ) {
+      echo '<h3 class="tops-article-nav__heading"><a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a></h3>';
+    }
 
     $post_args = array(
       'posts_per_page'  => -1,
       'orderby'         => 'menu_order',
       'order'           => 'ASC',
       'post_type'       => 'tops_article',
-      'post_parent'     => $parent->ID,
+      'post_parent'     => $parent_id,
       'tax_query'       => array(
         array(
           'taxonomy' => 'tops_category',

@@ -74,9 +74,18 @@ function tops_setup_post_types() {
 		'map_meta_cap' => false,
 		'show_in_menu' => true,
 		'query_var' => true,
-		'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'comments' ),
+		'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'comments', 'custom-fields' ),
 		//'show_in_nav_menus' => false,
 		'show_in_rest' => true,
+		'template' => array(
+				array(
+						'core/group',
+						array(
+								'layout' => array( 'type' => 'constrained' ),
+						),
+				),
+		),
+		'template_lock' => false,
 		'rewrite' => array( 'slug' => 'article', 'with_front' => false ),
 	);
 	
